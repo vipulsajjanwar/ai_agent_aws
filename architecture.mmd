@@ -1,0 +1,13 @@
+flowchart LR
+  TrafficGen[Traffic Generator] --> ALB[ALB (ALB Target Group)]
+  ALB --> ECS[ECS Fargate Service]
+  ECS --> CloudWatch[CloudWatch Metrics & Logs]
+  CloudWatch --> EventBridge[EventBridge Schedule]
+  EventBridge --> Lambda[Lambda: AI Agent]
+  Lambda --> ECS_API[ECS UpdateService / ForceNewDeployment]
+  Lambda --> SNS[Slack (via SNS HTTP/Webhook)]
+  Lambda --> S3[Telemetry S3]
+  subgraph Optional
+    SageMaker[SageMaker Forecasting]
+  end
+  Lambda --> SageMaker

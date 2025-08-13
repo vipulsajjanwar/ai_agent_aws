@@ -1,39 +1,29 @@
-# AWS DevOps AI Agents
+# AWS DevOps AI Agents — Hackathon Edition (V2)
+## One-liner
+Predictive Auto-Scaling + Self-Healing AI Agent for AWS (ECS Fargate demo) — built for fast hackathon demos with clear metrics, Slack notifications, and repeatable infra provisioning.
 
-## Overview
-This project showcases **AI-powered AWS DevOps Agents** designed for automating infrastructure tasks, monitoring, scaling, and optimization. 
-It is intended for hackathon-level prototyping but follows production-grade best practices.
+## Why this wins
+- Combines ML-driven forecasting + automated remediation (scaling & healing).
+- Easy to demo: simulate traffic, show scale/heal events, Slack feed, CloudWatch dashboard.
+- Judges love cost-saving + reliability + explainability — all included.
 
-## Features
-- **Infrastructure Provisioning Agent**: Provisions AWS resources (EC2, S3, RDS, ECS) using AI decisions based on workload.
-- **Monitoring & Anomaly Detection Agent**: Uses CloudWatch metrics and AI to predict outages or failures.
-- **Auto-Scaling Optimization Agent**: Predictive scaling for ECS, EKS, and EC2 instances.
-- **Cost Optimization Agent**: AI-driven analysis of AWS billing to suggest savings.
-- **Security & Compliance Agent**: Detects vulnerabilities and applies patches automatically.
+## What's inside
+- `lambda_agent.py` — improved predictive & self-heal Lambda (single-file, no external deps).
+- `terraform/` — skeleton to provision ECS Fargate service + ALB + Lambda + EventBridge + IAM roles.
+- `traffic/ab_generate.sh` — quick ApacheBench script to create load during demo.
+- `deploy.sh` — helper script that shows recommended deploy steps (not fully automated for safety).
+- `README_demo.md` — step-by-step demo script for a 10-min presentation.
+- `architecture.mmd` — mermaid diagram (open in mermaid.live) + `architecture.png` placeholder.
+- `LICENSE` — MIT
 
-## Architecture Diagram
-![Architecture](architecture.png)
+## Quick demo flow (10 minutes)
+1. `terraform` apply the demo infra (or run prebuilt CloudFormation).
+2. Start traffic generator: `sh traffic/ab_generate.sh http://<ALB_DNS>/ -c 50 -n 10000`.
+3. Watch CloudWatch metrics + Slack notifications when Lambda scales/heals.
+4. Point judges to CloudWatch dashboard and show number of scale events and healed tasks.
 
-## Components
-1. `infrastructure_agent.py` - AI-based provisioning logic.
-2. `monitoring_agent.py` - CloudWatch-based anomaly detection.
-3. `autoscaling_agent.py` - Predictive scaling logic.
-4. `cost_agent.py` - Billing data optimization suggestions.
-5. `security_agent.py` - Vulnerability detection and patching.
+## Files explained
+See `terraform/README.md` for infra steps and variables to configure.
 
-## How to Run
-1. Install dependencies:
-    ```bash
-    pip install boto3 openai pandas scikit-learn
-    ```
-2. Configure AWS CLI:
-    ```bash
-    aws configure
-    ```
-3. Run an agent:
-    ```bash
-    python infrastructure_agent.py
-    ```
-
-## License
-MIT License
+## Contact
+Built for UD — tweak thresholds and model in `lambda_agent.py` for your app characteristics.

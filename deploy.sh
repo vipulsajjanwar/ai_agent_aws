@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+echo "=== AWS DevOps AI Agents — Deploy Helper ==="
+echo "This script is a guide. For safety we don't auto-create infra here."
+echo "Steps:"
+echo "1) Edit terraform/variables.tf with your values (region, VPC, subnets)"
+echo "2) cd terraform && terraform init && terraform apply -var='project=demo' -auto-approve"
+echo "3) Note outputs: ALB_DNS, ECS cluster and service names."
+echo "4) Upload lambda_agent.py to Lambda (or use terraform lambda resource) and set env vars."
+echo "5) Configure EventBridge rule to invoke Lambda every 1 minute."
+echo "6) Configure SSM Parameter for Slack webhook or set SLACK_WEBHOOK env var."
+echo "7) Start traffic generator: sh traffic/ab_generate.sh http://ALB_DNS/ -c 50 -n 100000"
+echo "8) Watch CloudWatch logs and Slack channel."
